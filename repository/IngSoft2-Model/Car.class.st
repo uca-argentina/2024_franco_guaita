@@ -15,14 +15,14 @@ Car >> currentGear [
 
 { #category : #'as yet unclassified' }
 Car >> initialize [
-	gear := 0.
+	gear := 1.
 
 ]
 
 { #category : #'as yet unclassified' }
 Car >> shiftDownGear [
 
-	gear = 0 ifTrue: [ Error signal: 'Cannot Shift Down In Gear Zero' ].
+	gear = 1 ifTrue: [ Error signal: 'Cannot Shift Down In Gear One' ].
 	gear := gear - 1
 ]
 

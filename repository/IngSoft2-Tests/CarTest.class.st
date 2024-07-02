@@ -16,22 +16,22 @@ CarTest >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessag
 ]
 
 { #category : #tests }
-CarTest >> test01whenGearIsZeroAndShiftUpGearThenCurrentGearIsOne [
+CarTest >> test01WhenGearIsOneAndShiftUpGearThenCurrentGearIsTwo [
 	| aCar |
 	aCar := Car new.
-	aCar shiftUpGear.
-	
-	self assert: aCar currentGear equals: 1.
-]
-
-{ #category : #tests }
-CarTest >> test02whenGearIsZeroAndShiftUpGearTwiceThenCurrentGearIsTwo [
-	| aCar |
-	aCar := Car new.
-	aCar shiftUpGear.
 	aCar shiftUpGear.
 	
 	self assert: aCar currentGear equals: 2.
+]
+
+{ #category : #tests }
+CarTest >> test02WhenGearIsOneAndShiftUpGearTwiceThenCurrentGearIsThree [
+	| aCar |
+	aCar := Car new.
+	aCar shiftUpGear.
+	aCar shiftUpGear.
+	
+	self assert: aCar currentGear equals: 3.
 ]
 
 { #category : #tests }
@@ -52,7 +52,7 @@ CarTest >> test03ErrorWhenGearIsFiveAndShiftUpGear [
 ]
 
 { #category : #tests }
-CarTest >> test04ErrorWhenGearIsZeroAndShiftDownGear [
+CarTest >> test04ErrorWhenGearIsOneAndShiftDownGear [
 
 	| aCar |
 	aCar := Car new.
@@ -61,7 +61,7 @@ CarTest >> test04ErrorWhenGearIsZeroAndShiftDownGear [
 	self
 		should: [ aCar shiftDownGear ]
 		raise: Error
-		withMessage: 'Cannot Shift Down In Gear Zero'
+		withMessage: 'Cannot Shift Down In Gear One'
 ]
 
 { #category : #tests }

@@ -2,10 +2,17 @@ Class {
 	#name : #Car,
 	#superclass : #Object,
 	#instVars : [
-		'gear'
+		'gear',
+		'name'
 	],
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #accessing }
+Car class >> name: aName [
+
+	^ self new initializeWith: aName.
+]
 
 { #category : #'as yet unclassified' }
 Car >> currentGear [
@@ -14,13 +21,18 @@ Car >> currentGear [
 ]
 
 { #category : #'as yet unclassified' }
-Car >> initialize [
+Car >> initializeWith: aName [
+	 name := aName .
 	gear := 1.
-
 ]
 
 { #category : #'as yet unclassified' }
+Car >> name [ 
 
+	^ name.
+]
+
+{ #category : #'as yet unclassified' }
 Car >> shiftDownGear [
 
 	gear = 1 ifTrue: [ Error signal: 'Cannot Shift Down In Gear One' ].
@@ -29,7 +41,6 @@ Car >> shiftDownGear [
 ]
 
 { #category : #'as yet unclassified' }
-
 Car >> shiftUpGear [
 
 	gear = 5 ifTrue: [ Error signal: 'Cannot Shift Up In Gear Five' ].

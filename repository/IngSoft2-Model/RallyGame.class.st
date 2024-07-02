@@ -25,11 +25,20 @@ RallyGame >> initializeWithPlayers: nameCollection [
 ]
 
 { #category : #initialization }
+RallyGame >> isOver [
+
+	^ board last isNil
+
+]
+
+{ #category : #initialization }
 RallyGame >> playTurn [
 
 	| position |
+	self isOver ifFalse: [ Error signal: 'Game is over!' ].
 	position := board indexOf: cars.
-	board at: position put: nil .
+
+	board at: position put: nil.
 	board at: position + 1 put: cars.
 ]
 
@@ -43,5 +52,6 @@ RallyGame >> positionOf: aCarName [
 { #category : #initialization }
 RallyGame >> winner [
 	
+	self isOver ifTrue: [ Error signal: 'Theres no winner yet' ].
 	^ board last. 
 ]

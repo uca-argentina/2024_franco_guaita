@@ -51,6 +51,7 @@ CarTest >> test03ErrorWhenGearIsFiveAndShiftUpGear [
 		withMessage: 'Cannot Shift Up In Gear Five'
 ]
 
+
 { #category : #tests }
 CarTest >> test04ErrorWhenGearIsZeroAndShiftDownGear [
 
@@ -78,3 +79,4 @@ CarTest >> test05WhenGearIsFourAndShiftDownGearTwiceThenCurrentGearIsTwo [
 	
 	self assert: aCar currentGear equals: 2.
 ]
+

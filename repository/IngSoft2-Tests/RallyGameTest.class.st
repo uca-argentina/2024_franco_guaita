@@ -21,7 +21,7 @@ RallyGameTest >> should: anErrorBlock raise: exceptionClass withMessage: anError
 RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo [ 
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan'.
+	aGame := RallyGame players: 'Juan' die: (LoadedDie sequence: #(1)) boardLength: 5.
 	
 	aGame playTurn.
 	
@@ -37,7 +37,7 @@ RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo
 RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan'.
+	aGame := RallyGame players: 'Juan' die: (LoadedDie sequence: #(1)) boardLength: 5.
 	
 	aGame playTurn.
 	aGame playTurn.
@@ -57,7 +57,7 @@ RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 RallyGameTest >> test03ErrorWhenPositionOfPlayerIsFiveThenPlayerCannotPlayTurn [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan'.
+	aGame := RallyGame players: 'Juan' die: (LoadedDie sequence: #(1)) boardLength: 5.
 	
 	aGame playTurn.
 	aGame playTurn.
@@ -79,13 +79,31 @@ RallyGameTest >> test03ErrorWhenPositionOfPlayerIsFiveThenPlayerCannotPlayTurn [
 RallyGameTest >> test04ErrorWhenTheresNoWinnerYet [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan'.
+	aGame := RallyGame players: 'Juan' die: (LoadedDie sequence: #(1)) boardLength: 5.
 	
 	
 	self
 		should: [ aGame winner]
 		raise: Error
 		withMessage: 'Theres no winner yet'
+	
+	
+	
+	
+	
+]
+
+{ #category : #tests }
+RallyGameTest >> test05WhenDieThrowsTwoThenCarPositionIsThree [
+	
+	| aGame |
+	aGame := RallyGame players: 'Juan' die: (LoadedDie sequence: #(2)) boardLength: 5.
+	
+	aGame playTurn.
+	
+	
+	self assert: (aGame positionOf: 'Juan') equals: 3.
+
 	
 	
 	

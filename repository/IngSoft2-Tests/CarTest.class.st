@@ -51,8 +51,10 @@ CarTest >> test03ErrorWhenGearIsFiveAndShiftUpGear [
 		withMessage: 'Cannot Shift Up In Gear Five'
 ]
 
+
 { #category : #tests }
 CarTest >> test04ErrorWhenGearIsOneAndShiftDownGear [
+
 
 	| aCar |
 	aCar := Car new.
@@ -61,7 +63,9 @@ CarTest >> test04ErrorWhenGearIsOneAndShiftDownGear [
 	self
 		should: [ aCar shiftDownGear ]
 		raise: Error
+
 		withMessage: 'Cannot Shift Down In Gear One'
+
 ]
 
 { #category : #tests }
@@ -71,7 +75,7 @@ CarTest >> test05WhenGearIsFourAndShiftDownGearTwiceThenCurrentGearIsTwo [
 	aCar shiftUpGear .
 	aCar shiftUpGear .
 	aCar shiftUpGear .
-	
+
 	
 	aCar shiftDownGear.
 	aCar shiftDownGear.

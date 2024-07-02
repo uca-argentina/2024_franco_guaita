@@ -43,7 +43,7 @@ CarTest >> test03ErrorWhenGearIsFiveAndShiftUpGear [
 	aCar shiftUpGear.
 	aCar shiftUpGear.
 	aCar shiftUpGear.
-	aCar shiftUpGear.
+	
 
 	self
 		should: [ aCar shiftUpGear ]
@@ -71,7 +71,7 @@ CarTest >> test05WhenGearIsFourAndShiftDownGearTwiceThenCurrentGearIsTwo [
 	aCar shiftUpGear .
 	aCar shiftUpGear .
 	aCar shiftUpGear .
-	aCar shiftUpGear .
+	
 	
 	aCar shiftDownGear.
 	aCar shiftDownGear.

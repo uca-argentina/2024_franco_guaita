@@ -21,7 +21,7 @@ RallyGameTest >> should: anErrorBlock raise: exceptionClass withMessage: anError
 RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo [ 
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan' gear: {LoadedDie sequence: #(1)} boardLength: 5.
+	aGame := RallyGame players: {'Juan'} asOrderedCollection  gear: {LoadedDie sequence: #(1)} boardLength: 5.
 	
 	aGame advance.
 	
@@ -37,7 +37,7 @@ RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo
 RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan' gear: {LoadedDie sequence: #(1)} boardLength: 5.
+	aGame := RallyGame players: {'Juan'} asOrderedCollection  gear: {LoadedDie sequence: #(1)} boardLength: 5.
 	
 	aGame advance.
 	aGame advance.
@@ -57,7 +57,7 @@ RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 RallyGameTest >> test03ErrorWhenPositionOfPlayerIsFiveThenPlayerCannotPlayTurn [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan' gear: {LoadedDie sequence: #(1)} boardLength: 5.
+	aGame := RallyGame players: {'Juan'} asOrderedCollection  gear: {LoadedDie sequence: #(1)} boardLength: 5.
 	
 	aGame advance.
 	aGame advance.
@@ -79,7 +79,7 @@ RallyGameTest >> test03ErrorWhenPositionOfPlayerIsFiveThenPlayerCannotPlayTurn [
 RallyGameTest >> test04ErrorWhenTheresNoWinnerYet [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan' gear: {LoadedDie sequence: #(1)} boardLength: 5.
+	aGame := RallyGame players: {'Juan'} asOrderedCollection  gear: {LoadedDie sequence: #(1)} boardLength: 5.
 	
 	
 	self
@@ -97,7 +97,7 @@ RallyGameTest >> test04ErrorWhenTheresNoWinnerYet [
 RallyGameTest >> test05WhenDieThrowsTwoThenCarPositionIsThree [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan' gear: {LoadedDie sequence: #(2)} boardLength: 5.
+	aGame := RallyGame players: {'Juan'} asOrderedCollection  gear: {LoadedDie sequence: #(2)} boardLength: 5.
 	
 	aGame advance.
 	
@@ -115,7 +115,7 @@ RallyGameTest >> test05WhenDieThrowsTwoThenCarPositionIsThree [
 RallyGameTest >> test06WhenGameStartsThenCarsAreInPositionOne [
 	
 	| aGame |
-	aGame := RallyGame players: 'Juan' gear: {LoadedDie sequence: #(2)} boardLength: 5.
+	aGame := RallyGame players: {'Juan'} asOrderedCollection  gear: {LoadedDie sequence: #(2)} boardLength: 5.
 	
 	
 	self assert: (aGame positionOf: 'Juan') equals: 1.
@@ -133,13 +133,61 @@ RallyGameTest >> test07WhenCarShiftUpGearThenAdvanceWillUseTheSecondLoadedDie [
 	| aGame gear |
 	gear := { LoadedDie sequence: #(2) . LoadedDie sequence: #(3)}.
 	
-	aGame := RallyGame players: 'Juan' gear: gear  boardLength: 5.
+	aGame := RallyGame players: {'Juan'} asOrderedCollection  gear: gear  boardLength: 5.
 	aGame shiftUpGear.
 	
 	aGame advance .
 	
 	
 	self assert: (aGame positionOf: 'Juan') equals: 4.
+
+	
+	
+	
+	
+	
+]
+
+{ #category : #tests }
+RallyGameTest >> test08WhenTwoPlayersAdvanceThenBothPlayersAreInPositionThree [
+	
+	| aGame gear nameCollection |.
+	
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus' .
+	gear := { LoadedDie sequence: #(2) . LoadedDie sequence: #(3)}.
+	
+	aGame := RallyGame players: nameCollection gear: gear  boardLength: 5.
+	
+	aGame advance .
+	aGame advance .
+	
+	self assert: (aGame positionOf: 'Juan') equals: 3.
+	self assert: (aGame positionOf: 'Agus') equals: 3.
+
+	
+	
+	
+	
+	
+]
+
+{ #category : #tests }
+RallyGameTest >> test09WhenTwoPlayersPlayTwoDifferentTurnsThenPositionsShouldBeDifferent [
+	
+	| aGame gear nameCollection |.
+	
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus' .
+	gear := { LoadedDie sequence: #(2) . LoadedDie sequence: #(3)}.
+	
+	aGame := RallyGame players: nameCollection gear: gear  boardLength: 10.
+	
+	aGame shiftUpGear .
+	aGame advance .
+	aGame advance .
+	aGame advance .
+	
+	self assert: (aGame positionOf: 'Juan') equals: 4.
+	self assert: (aGame positionOf: 'Agus') equals: 5.
 
 	
 	

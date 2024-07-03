@@ -38,12 +38,12 @@ Car >> initializeWith: aName gear: aGear [
 { #category : #'as yet unclassified' }
 Car >> moveIn: aBoard [
 
-	| dieNumber position |
+	| dieNumber currentPosition |
 	dieNumber := (gear at: currentGear) throw .
-	position := aBoard  indexOf: self.
+	currentPosition := aBoard  detectIndex: [ :position | position includes: self ].
 
-	aBoard at: position put: nil.
-	aBoard at: position + dieNumber put: self.
+	(aBoard at: currentPosition )remove: self.
+	(aBoard at: currentPosition + dieNumber )add: self.
 
 	 
 ]

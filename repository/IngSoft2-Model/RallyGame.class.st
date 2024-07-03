@@ -49,6 +49,12 @@ RallyGame >> positionOf: aCarName [
 ]
 
 { #category : #'as yet unclassified' }
+RallyGame >> shiftDownGear [
+
+	cars first shiftDownGear
+]
+
+{ #category : #'as yet unclassified' }
 RallyGame >> shiftUpGear [
 
 	cars first shiftUpGear

@@ -2,24 +2,27 @@ Class {
 	#name : #Die,
 	#superclass : #Object,
 	#instVars : [
-		'faces'
+		'min',
+		'max'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'as yet unclassified' }
-Die class >> faces: amountOfFaces [
-	^ self new initializeWith: amountOfFaces 
+Die class >> min: aMin max: aMax [
+
+	^ self new initializeWith: aMin max: aMax
 ]
 
 { #category : #initialization }
-Die >> initializeWith: amountOfFaces [
+Die >> initializeWith: aMin max: aMax [
 
-	faces := amountOfFaces 
+	min := aMin.
+	max := aMax
 ]
 
 { #category : #initialization }
 Die >> throw [ 
 
-	^ faces atRandom .
+	^(min to: max) atRandom .
 ]

@@ -18,7 +18,7 @@ CarTest >> should: anErrorBlock raise: exceptionClass withMessage: anErrorMessag
 { #category : #tests }
 CarTest >> test01WhenGearIsOneAndShiftUpGearThenCurrentGearIsTwo [
 	| aCar |
-	aCar := Car name: 'Juan'.
+	aCar := Car name: 'Juan' gear: 1.
 	aCar shiftUpGear.
 	
 	self assert: aCar currentGear equals: 2.
@@ -27,7 +27,7 @@ CarTest >> test01WhenGearIsOneAndShiftUpGearThenCurrentGearIsTwo [
 { #category : #tests }
 CarTest >> test02WhenGearIsOneAndShiftUpGearTwiceThenCurrentGearIsThree [
 	| aCar |
-	aCar := Car name: 'Juan'.
+	aCar := Car name: 'Juan' gear: 1.
 	aCar shiftUpGear.
 	aCar shiftUpGear.
 	
@@ -38,7 +38,7 @@ CarTest >> test02WhenGearIsOneAndShiftUpGearTwiceThenCurrentGearIsThree [
 CarTest >> test03ErrorWhenGearIsFiveAndShiftUpGear [
 
 	| aCar |
-	aCar := Car name: 'Juan'.
+	aCar := Car name: 'Juan' gear: 1.
 	aCar shiftUpGear.
 	aCar shiftUpGear.
 	aCar shiftUpGear.
@@ -56,7 +56,7 @@ CarTest >> test04ErrorWhenGearIsOneAndShiftDownGear [
 
 
 	| aCar |
-	aCar := Car name: 'Juan'.
+	aCar := Car name: 'Juan' gear: 1.
 	
 
 	self
@@ -70,7 +70,7 @@ CarTest >> test04ErrorWhenGearIsOneAndShiftDownGear [
 { #category : #tests }
 CarTest >> test05WhenGearIsFourAndShiftDownGearTwiceThenCurrentGearIsTwo [
 	| aCar |
-	aCar := Car name: 'Juan'.
+	aCar := Car name: 'Juan' gear: 1.
 	aCar shiftUpGear .
 	aCar shiftUpGear .
 	aCar shiftUpGear .

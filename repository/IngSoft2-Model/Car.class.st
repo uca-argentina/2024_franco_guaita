@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'gear',
-		'name'
+		'name',
+		'currentGear'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,15 +16,36 @@ Car class >> name: aName [
 ]
 
 { #category : #'as yet unclassified' }
-Car >> currentGear [
-	^ gear 
+Car class >> name: aName gear: aGear [
 
+	^ self new initializeWith: aName gear: aGear
 ]
 
 { #category : #'as yet unclassified' }
-Car >> initializeWith: aName [
-	 name := aName .
-	gear := 1.
+Car >> currentGear [
+	^ currentGear  
+
+]
+
+{ #category : #initialization }
+Car >> initializeWith: aName gear: aGear [
+
+	name := aName.
+	gear := aGear.
+	currentGear := 1
+]
+
+{ #category : #'as yet unclassified' }
+Car >> moveIn: aBoard [
+
+	| dieNumber position |
+	dieNumber := (gear at: currentGear) throw .
+	position := aBoard  indexOf: self.
+
+	aBoard at: position put: nil.
+	aBoard at: position + dieNumber put: self.
+
+	 
 ]
 
 { #category : #'as yet unclassified' }
@@ -35,14 +57,14 @@ Car >> name [
 { #category : #'as yet unclassified' }
 Car >> shiftDownGear [
 
-	gear = 1 ifTrue: [ Error signal: 'Cannot Shift Down In Gear One' ].
+	currentGear = 1 ifTrue: [ Error signal: 'Cannot Shift Down In Gear One' ].
 
-	gear := gear - 1
+	currentGear := currentGear - 1
 ]
 
 { #category : #'as yet unclassified' }
 Car >> shiftUpGear [
 
-	gear = 5 ifTrue: [ Error signal: 'Cannot Shift Up In Gear Five' ].
-	gear := gear + 1
+	currentGear = 5 ifTrue: [ Error signal: 'Cannot Shift Up In Gear Five' ].
+	currentGear := currentGear + 1
 ]

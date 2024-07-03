@@ -10,18 +10,25 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection die: aDie boardLength: aBoardLength [
+RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength [
 
-	^ self new initializeWithPlayers: nameCollection withDie: aDie withBoardLength: aBoardLength  .
+	^ self new initializeWithPlayers: nameCollection withGear: aGear  withBoardLength: aBoardLength  .
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withDie: aDie withBoardLength: aBoardLength [
+RallyGame >> advance [
+	
+	self isOver ifTrue: [ Error signal: 'Game is over!' ].
+	cars first moveIn: board .
+]
+
+{ #category : #initialization }
+RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength [
 	board := OrderedCollection new: aBoardLength withAll: nil.
 	"cars := Car name: nameCollection ."
-	cars := nameCollection.
-	board at: 1 put: cars .
-	die := aDie .
+	cars := {Car name: nameCollection gear: aGear }.
+	board at: 1 put: cars first .
+	
 	
 	 
 ]
@@ -29,33 +36,27 @@ RallyGame >> initializeWithPlayers: nameCollection withDie: aDie withBoardLength
 { #category : #initialization }
 RallyGame >> isOver [
 
-	^ board last isNil
+	^ board last isNotNil 
 
-]
-
-{ #category : #initialization }
-RallyGame >> playTurn [
-
-	| position dieNumber |
-	
-	self isOver ifFalse: [ Error signal: 'Game is over!' ].
-	dieNumber := die throw .
-	position := board indexOf: cars.
-
-	board at: position put: nil.
-	board at: position + dieNumber put: cars.
 ]
 
 { #category : #initialization }
 RallyGame >> positionOf: aCarName [
+	"^ board indexOf: aCarName ."
+	| vcar |
+	vcar := cars detect: [ :car | car name = aCarName ].
+	^ board indexOf: vcar
+]
 
-	^ board indexOf: aCarName .
-	"^ board detectIndex: [ :car | car name = aCarName ]"
+{ #category : #'as yet unclassified' }
+RallyGame >> shiftUpGear [
+
+	cars first shiftUpGear
 ]
 
 { #category : #initialization }
 RallyGame >> winner [
 	
-	self isOver ifTrue: [ Error signal: 'Theres no winner yet' ].
-	^ board last. 
+	self isOver ifFalse: [ Error signal: 'Theres no winner yet' ].
+	^ (board last) name. 
 ]

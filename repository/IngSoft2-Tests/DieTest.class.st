@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-DieTest >> test01 [ 
+DieTest >> test01ThrowADieWithSixFacesThenNumberIsBetweenOneAndSix [ 
 
 	| aDie |
 	aDie := Die faces: 6.

@@ -12,7 +12,20 @@ Class {
 { #category : #'as yet unclassified' }
 RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength [
 
-	^ self new initializeWithPlayers: nameCollection withGear: aGear  withBoardLength: aBoardLength  .
+	^ self new
+		  initializeWithPlayers: nameCollection
+		  withGear: aGear
+		  withBoardLength: aBoardLength
+]
+
+{ #category : #'as yet unclassified' }
+RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength generator: aSquareGenerator [
+
+	^ self new
+		  initializeWithPlayers: nameCollection
+		  withGear: aGear
+		  withBoardLength: aBoardLength
+		  withGenerator: aSquareGenerator
 ]
 
 { #category : #initialization }
@@ -21,16 +34,30 @@ RallyGame >> advance [
 	| nextCar |
 	self isOver ifTrue: [ Error signal: 'Game is over!' ].
 	nextCar := self nextCar .
-	nextCar moveIn: board
+	nextCar moveIn: board.
+	board applySquareEffect: nextCar
+	
 ]
 
 { #category : #initialization }
 RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength [
-	board := OrderedCollection new.
-	aBoardLength timesRepeat: [ board add: OrderedCollection new ].
+
+	| aSquareGenerator |
+	aSquareGenerator := SquareGenerator new.
+	self
+		initializeWithPlayers: nameCollection
+		withGear: aGear
+		withBoardLength: aBoardLength
+		withGenerator: aSquareGenerator
+]
+
+{ #category : #initialization }
+RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator [
+
+	board := Board length: aBoardLength withGenerator: aSquareGenerator .
 	
 	cars := nameCollection collect: [ :name | Car name: name gear: aGear ].
-	cars do: [ :car | (board at: 1 ) add: car ]
+	board startingCars: cars .
 	
 	
 	 
@@ -39,7 +66,8 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 { #category : #initialization }
 RallyGame >> isOver [
 
-	^ board last isNotEmpty .
+	^ cars anySatisfy: [ :car | (self positionOf: car name) = board size ].
+	"^ board last isNotEmpty ."
 
 ]
 
@@ -57,7 +85,7 @@ RallyGame >> positionOf: aCarName [
 
 	| vcar |
 	vcar := cars detect: [ :car | car name = aCarName ].
-	^ board detectIndex: [ :position | position includes: vcar ]
+	^ board findCar: vcar
 ]
 
 { #category : #'as yet unclassified' }
@@ -80,6 +108,8 @@ RallyGame >> shiftUpGear [
 { #category : #initialization }
 RallyGame >> winner [
 	
+	| winnerCar |
 	self isOver ifFalse: [ Error signal: 'Theres no winner yet' ].
-	^ (board last) first name. 
+	winnerCar := cars detect: [ :car | (self positionOf: car name) = board size ].
+	^winnerCar name
 ]

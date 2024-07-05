@@ -304,3 +304,37 @@ RallyGameTest >> test12WhenCarLoseATurnThenAfterTurnLostCarShouldBeAbleToPlay [
 	self assert: (aGame positionOf: 'Juan') equals: 3.
 	self assert: (aGame positionOf: 'Agus') equals: 4
 ]
+
+{ #category : #tests }
+RallyGameTest >> test13WhenCarLandsInOilSquareThenCarShouldReduceGearInOne [
+
+	| aGame gear nameCollection squareGenerator someSquares |
+	someSquares := OrderedCollection
+		               with: PavementSquare new
+		               with: OilSquare  new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new.
+
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	gear := {
+		        (LoadedDie sequence: #( 3)).
+		        (LoadedDie sequence: #( 1 2 1 1)) }.
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 10
+		         generator: squareGenerator.
+		
+	aGame shiftUpGear .
+	aGame shiftUpGear .
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	
+	self assert: (aGame positionOf: 'Juan') equals: 5.
+	self assert: (aGame positionOf: 'Agus') equals: 4
+]

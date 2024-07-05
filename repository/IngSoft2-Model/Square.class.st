@@ -10,8 +10,7 @@ Class {
 { #category : #'as yet unclassified' }
 Square >> applyEffectTo: aCar in: aBoard [
 
-	self subclassResponsibility 
-
+	aCar loseTurn
 ]
 
 { #category : #'as yet unclassified' }

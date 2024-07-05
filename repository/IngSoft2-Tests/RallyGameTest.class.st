@@ -21,7 +21,7 @@ RallyGameTest >> should: anErrorBlock raise: exceptionClass withMessage: anError
 RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo [ 
 	
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 1 )) }
@@ -42,7 +42,7 @@ RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo
 RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 1 )) }
@@ -62,7 +62,7 @@ RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 RallyGameTest >> test03ErrorWhenPositionOfPlayerIsFiveThenPlayerCannotPlayTurn [
 	
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 1 )) }
@@ -89,7 +89,7 @@ RallyGameTest >> test03ErrorWhenPositionOfPlayerIsFiveThenPlayerCannotPlayTurn [
 RallyGameTest >> test04ErrorWhenTheresNoWinnerYet [
 	
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 1 )) }
@@ -112,7 +112,7 @@ RallyGameTest >> test04ErrorWhenTheresNoWinnerYet [
 RallyGameTest >> test05WhenDieThrowsTwoThenCarPositionIsThree [
 
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 2 )) }
@@ -129,7 +129,7 @@ RallyGameTest >> test05WhenDieThrowsTwoThenCarPositionIsThree [
 RallyGameTest >> test06WhenGameStartsThenCarsAreInPositionOne [
 	
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 2 )) }
@@ -152,7 +152,7 @@ RallyGameTest >> test07WhenCarShiftUpGearThenAdvanceWillUseTheSecondLoadedDie [
 	| aGame gear squareGenerator |
 	gear := { LoadedDie sequence: #(2) . LoadedDie sequence: #(3)}.
 	
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame players: { 'Juan' } asOrderedCollection  gear: gear  boardLength: 5 generator: squareGenerator.
 	aGame shiftUpGear.
 	
@@ -176,7 +176,7 @@ RallyGameTest >> test08WhenTwoPlayersAdvanceThenBothPlayersAreInPositionThree [
 	nameCollection := OrderedCollection with: 'Juan' with: 'Agus' .
 	gear := { LoadedDie sequence: #(2) . LoadedDie sequence: #(3)}.
 	
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame players: nameCollection gear: gear  boardLength: 5 generator: squareGenerator.
 	
 	aGame advance .
@@ -200,7 +200,7 @@ RallyGameTest >> test09WhenTwoPlayersPlayTwoDifferentTurnsThenPositionsShouldBeD
 	nameCollection := OrderedCollection with: 'Juan' with: 'Agus' .
 	gear := { LoadedDie sequence: #(2) . LoadedDie sequence: #(3)}.
 	
-	squareGenerator := LoadedSquareGenerator with: PavementSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
 	aGame := RallyGame players: nameCollection gear: gear  boardLength: 10 generator: squareGenerator.
 	
 	aGame shiftUpGear .
@@ -226,7 +226,7 @@ RallyGameTest >> test10WhenCarLandsInRubberSquareThenPositionIsCurrentPlusTwo [
 	nameCollection := OrderedCollection with: 'Juan' with: 'Agus' .
 	gear := { LoadedDie sequence: #(2) . LoadedDie sequence: #(3)}.
 	
-	squareGenerator := LoadedSquareGenerator with: RubberSquare new.
+	squareGenerator := LoadedSquareGenerator withSquares:  { RubberSquare  new } asOrderedCollection .
 	aGame := RallyGame players: nameCollection gear: gear  boardLength: 10 generator: squareGenerator.
 	
 	aGame shiftUpGear .
@@ -240,4 +240,67 @@ RallyGameTest >> test10WhenCarLandsInRubberSquareThenPositionIsCurrentPlusTwo [
 	
 	
 	
+]
+
+{ #category : #tests }
+RallyGameTest >> test11WhenACarLandsInOilSquareThenCarShouldLoseNextTurn [
+
+	| aGame gear nameCollection squareGenerator someSquares |
+	someSquares := OrderedCollection
+		               with: PavementSquare new
+		               with: OilSquare  new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new.
+
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	gear := {
+		        (LoadedDie sequence: #( 1 2 1)).
+		        (LoadedDie sequence: #( 3 )) }.
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 10
+		         generator: squareGenerator.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	
+	self assert: (aGame positionOf: 'Juan') equals: 2.
+	self assert: (aGame positionOf: 'Agus') equals: 4
+]
+
+{ #category : #tests }
+RallyGameTest >> test12WhenCarLoseATurnThenAfterTurnLostCarShouldBeAbleToPlay [
+
+	| aGame gear nameCollection squareGenerator someSquares |
+	someSquares := OrderedCollection
+		               with: PavementSquare new
+		               with: OilSquare  new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new.
+
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	gear := {
+		        (LoadedDie sequence: #( 1 2 1 1)).
+		        (LoadedDie sequence: #( 3 )) }.
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 10
+		         generator: squareGenerator.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	
+	self assert: (aGame positionOf: 'Juan') equals: 3.
+	self assert: (aGame positionOf: 'Agus') equals: 4
 ]

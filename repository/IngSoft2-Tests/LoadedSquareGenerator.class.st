@@ -2,33 +2,30 @@ Class {
 	#name : #LoadedSquareGenerator,
 	#superclass : #Object,
 	#instVars : [
-		'squareToCreate'
+		'squares'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #'instance creation' }
-LoadedSquareGenerator class >> with: aSquare [
-	
-	^ self new initializeWith: aSquare 
+{ #category : #'as yet unclassified' }
+LoadedSquareGenerator class >> withSquares: someSquares [
+
+	^ self new initializeWith: someSquares
 ]
 
 { #category : #translating }
-LoadedSquareGenerator >> generate [ 
-	
-	^ squareToCreate deepCopy .
+LoadedSquareGenerator >> generate [
+
+	| square |
+	square := squares removeFirst.
+	squares add: square.
+	^ square deepCopy
 ]
 
 { #category : #translating }
-LoadedSquareGenerator >> generate: anAmountOfSquares [ 
-	
-	^ squareToCreate value.
-]
+LoadedSquareGenerator >> initializeWith: someSquares [
 
-{ #category : #translating }
-LoadedSquareGenerator >> initializeWith: aSquare [
-
-	squareToCreate := aSquare 
+	squares := someSquares  
 	
 	
 

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'gear',
 		'name',
-		'currentGear'
+		'currentGear',
+		'shouldLoseTurn'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,6 +22,12 @@ Car class >> name: aName gear: aGear [
 	^ self new initializeWith: aName gear: aGear
 ]
 
+{ #category : #testing }
+Car >> canPlay [
+
+	^ shouldLoseTurn not
+]
+
 { #category : #'as yet unclassified' }
 Car >> currentGear [
 	^ currentGear  
@@ -32,7 +39,14 @@ Car >> initializeWith: aName gear: aGear [
 
 	name := aName.
 	gear := aGear.
-	currentGear := 1
+	currentGear := 1.
+	shouldLoseTurn := false
+]
+
+{ #category : #'as yet unclassified' }
+Car >> loseTurn [
+
+	shouldLoseTurn := true
 ]
 
 { #category : #'as yet unclassified' }
@@ -64,4 +78,10 @@ Car >> shiftUpGear [
 
 	currentGear = 5 ifTrue: [ Error signal: 'Cannot Shift Up In Gear Five' ].
 	currentGear := currentGear + 1
+]
+
+{ #category : #'as yet unclassified' }
+Car >> turnLost [
+
+	shouldLoseTurn := false
 ]

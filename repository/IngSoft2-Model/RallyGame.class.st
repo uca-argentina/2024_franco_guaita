@@ -74,10 +74,16 @@ RallyGame >> isOver [
 { #category : #initialization }
 RallyGame >> nextCar [
 
-	| nextCar |
-	nextCar := cars removeFirst.
-	cars addLast: nextCar .
-	^nextCar
+	| currentCar |
+	currentCar := cars removeFirst.
+	cars addLast: currentCar.
+
+	[ currentCar canPlay ] whileFalse: [
+		currentCar turnLost.
+		currentCar := cars removeFirst.
+		cars addLast: currentCar ].
+
+	^ currentCar
 ]
 
 { #category : #initialization }

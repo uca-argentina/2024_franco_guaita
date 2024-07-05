@@ -8,5 +8,5 @@ Class {
 OilSquare >> applyEffectTo: aCar in: aBoard [
 
 	aCar loseTurn.
-	aCar shiftDownGear
+	aCar tryShiftDownGear
 ]

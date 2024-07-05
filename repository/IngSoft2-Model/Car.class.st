@@ -81,6 +81,12 @@ Car >> shiftUpGear [
 ]
 
 { #category : #'as yet unclassified' }
+Car >> tryShiftDownGear [
+
+	currentGear = 1 ifFalse: [ currentGear := currentGear - 1 ]
+]
+
+{ #category : #'as yet unclassified' }
 Car >> turnLost [
 
 	shouldLoseTurn := false

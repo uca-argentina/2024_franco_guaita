@@ -621,3 +621,95 @@ RallyGameTest >> test21WhenACarLosesThreeTiresThenGameEndsForThatCar [
 	self assert: (aGame tiresOf: 'Juan') equals: 0.
 	self assert: (aGame isOver) 
 ]
+
+{ #category : #tests }
+RallyGameTest >> test22WhenThereAreCarsWithTiresLeftAndOthersWithNoTiresLeftThenGameKeepsGoing [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new.
+
+
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	gear := {
+		        (LoadedDie sequence: #( 2 1 3 1 3 1 4 1 4 1 5 1 1 )).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection
+		              with: (Curve start: 2 end: 8 difficulty: 3)
+		              with: (Curve start: 12 end: 16 difficulty: 2)
+		              with: (Curve start: 18 end: 20 difficulty: 1).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 30
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+
+	self assert: (aGame positionOf: 'Juan') equals: 22.
+	self assert: (aGame positionOf: 'Agus') equals: 8.
+	self assert: (aGame tiresOf: 'Juan') equals: 0.
+	self deny: aGame isOver
+]
+
+{ #category : #tests }
+RallyGameTest >> test23WhenAllCarsHaveNoTiresLeftThenWinnerIsTheNearestCarToTheEnd [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new.
+
+
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	gear := {
+		        (LoadedDie sequence: #( 2 2 2 2 2 2 2 2 2 3 3 3 )).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection
+		              with: (Curve start: 2 end: 4 difficulty: 2)
+		              with: (Curve start: 6 end: 8 difficulty: 2)
+		              with: (Curve start: 10 end: 13 difficulty: 2).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 30
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+
+	self assert: (aGame positionOf: 'Juan') equals: 14.
+	self assert: (aGame positionOf: 'Agus') equals: 15.
+	self assert: (aGame tiresOf: 'Juan') equals: 0.
+	self assert: (aGame tiresOf: 'Agus') equals: 0.
+	self assert: aGame winner equals: 'Agus'.
+
+	self assert: aGame isOver
+]

@@ -139,8 +139,10 @@ RallyGame >> tiresOf: aCarName [
 { #category : #initialization }
 RallyGame >> winner [
 	
-	| winnerCar |
+	| winnerCar sortedCars |
 	self isOver ifFalse: [ Error signal: 'Theres no winner yet' ].
-	winnerCar := cars detect: [ :car | (self positionOf: car name) = board size ].
+	
+	sortedCars := cars sorted: [ :aCar :anotherCar | (self positionOf: aCar name) > (self positionOf: anotherCar name) ].
+	winnerCar := sortedCars first .
 	^winnerCar name
 ]

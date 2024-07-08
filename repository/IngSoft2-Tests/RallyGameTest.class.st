@@ -468,3 +468,83 @@ RallyGameTest >> test17WhenACarIsOnlyOneTurnOnADifficultyTwoCurveThenCarLoseOneT
 	self assert: (aGame positionOf: 'Juan') equals: 7.
 	self assert: (aGame tiresOf: 'Juan') equals: 2
 ]
+
+{ #category : #tests }
+RallyGameTest >> test18WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSquareEffectThenCarLoseOneTire [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new.
+	
+	someSquares add: RubberSquare new.
+	someSquares add: PavementSquare  new.
+	someSquares add: PavementSquare  new.
+	someSquares add: PavementSquare  new.
+
+	nameCollection := OrderedCollection with: 'Juan'.
+	gear := {
+		        (LoadedDie sequence: #( 6 )).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection with:
+		              (Curve start: 2 end: 8 difficulty: 2).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 20
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	"Curva de 2 a 6 y dificultad 2"
+
+	aGame advance.
+
+	self assert: (aGame positionOf: 'Juan') equals: 9.
+	self assert: (aGame tiresOf: 'Juan') equals: 2
+]
+
+{ #category : #tests }
+RallyGameTest >> test19WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSquareEffectAfterTwoTurnsThenCarDoesNotLoseTire [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new
+		               with: PavementSquare new.
+	
+	someSquares add: RubberSquare new.
+	someSquares add: PavementSquare  new.
+	someSquares add: PavementSquare  new.
+	someSquares add: PavementSquare  new.
+
+	nameCollection := OrderedCollection with: 'Juan'.
+	gear := {
+		        (LoadedDie sequence: #( 2 )).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection with:
+		              (Curve start: 2 end: 8 difficulty: 2).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 20
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+
+	self assert: (aGame positionOf: 'Juan') equals: 9.
+	self assert: (aGame tiresOf: 'Juan') equals: 3
+]

@@ -33,7 +33,7 @@ Car >> addTurnInCurve [
 { #category : #testing }
 Car >> canPlay [
 
-	^ shouldLoseTurn not
+	^ (shouldLoseTurn not ) and: (tires > 0)
 ]
 
 { #category : #'as yet unclassified' }
@@ -85,6 +85,12 @@ Car >> moveIn: aBoard [
 Car >> name [ 
 
 	^ name.
+]
+
+{ #category : #'as yet unclassified' }
+Car >> noTiresLeft [
+
+	^ tires = 0
 ]
 
 { #category : #'as yet unclassified' }

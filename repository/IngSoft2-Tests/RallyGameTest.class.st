@@ -548,3 +548,76 @@ RallyGameTest >> test19WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSqua
 	self assert: (aGame positionOf: 'Juan') equals: 9.
 	self assert: (aGame tiresOf: 'Juan') equals: 3
 ]
+
+{ #category : #tests }
+RallyGameTest >> test20WhenCarPlaysGameAndGoesThroughTwoCurvesWithinTheDifficultyThenCarShouldKeepThreeTires [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new .
+		       
+
+	nameCollection := OrderedCollection with: 'Juan'.
+	gear := {
+		        (LoadedDie sequence: #( 2 3 3 4 4)).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection with:
+		              (Curve start: 2 end: 8 difficulty: 2)
+		with:
+		              (Curve start: 12 end: 16 difficulty: 1).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 30
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+
+	self assert: (aGame positionOf: 'Juan') equals: 17.
+	self assert: (aGame tiresOf: 'Juan') equals: 3
+]
+
+{ #category : #tests }
+RallyGameTest >> test21WhenACarLosesThreeTiresThenGameEndsForThatCar [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new.
+
+
+	nameCollection := OrderedCollection with: 'Juan'.
+	gear := {
+		        (LoadedDie sequence: #( 2 3 3 4 4 5)).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection
+		              with: (Curve start: 2 end: 8 difficulty: 3)
+		              with: (Curve start: 12 end: 16 difficulty: 2)
+		              with: (Curve start: 18 end: 20 difficulty: 1).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 30
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	
+
+	self assert: (aGame positionOf: 'Juan') equals: 22.
+	self assert: (aGame tiresOf: 'Juan') equals: 0.
+	self assert: (aGame isOver) 
+]

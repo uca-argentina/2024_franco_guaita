@@ -82,9 +82,10 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 { #category : #initialization }
 RallyGame >> isOver [
 
-	^ cars anySatisfy: [ :car | (self positionOf: car name) = board size ].
+	^ (cars anySatisfy: [ :car |
+		   (self positionOf: car name) = board size ]) or:
+		  (cars allSatisfy: [ :car | car noTiresLeft ])
 	"^ board last isNotEmpty ."
-
 ]
 
 { #category : #initialization }

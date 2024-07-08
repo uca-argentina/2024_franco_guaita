@@ -6,7 +6,8 @@ Class {
 		'name',
 		'currentGear',
 		'shouldLoseTurn',
-		'tires'
+		'tires',
+		'turnsInCurve'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,6 +24,12 @@ Car class >> name: aName gear: aGear [
 	^ self new initializeWith: aName gear: aGear
 ]
 
+{ #category : #adding }
+Car >> addTurnInCurve [
+
+	turnsInCurve := turnsInCurve + 1
+]
+
 { #category : #testing }
 Car >> canPlay [
 
@@ -35,6 +42,12 @@ Car >> currentGear [
 
 ]
 
+{ #category : #'as yet unclassified' }
+Car >> curveLeft [
+
+	turnsInCurve := 0
+]
+
 { #category : #initialization }
 Car >> initializeWith: aName gear: aGear [
 
@@ -42,7 +55,8 @@ Car >> initializeWith: aName gear: aGear [
 	gear := aGear.
 	currentGear := 1.
 	shouldLoseTurn := false.
-	tires := 3
+	tires := 3.
+	turnsInCurve := 0
 ]
 
 { #category : #'as yet unclassified' }
@@ -103,4 +117,10 @@ Car >> tryShiftDownGear [
 Car >> turnLost [
 
 	shouldLoseTurn := false
+]
+
+{ #category : #accessing }
+Car >> turnsInCurve [
+
+	^ turnsInCurve
 ]

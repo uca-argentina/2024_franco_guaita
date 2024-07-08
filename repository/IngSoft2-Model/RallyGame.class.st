@@ -11,22 +11,24 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength [
+RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength curves: someCurves [
 
 	^ self new
 		  initializeWithPlayers: nameCollection
 		  withGear: aGear
 		  withBoardLength: aBoardLength
+		  withCurves: someCurves
 ]
 
 { #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength generator: aSquareGenerator [
+RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength generator: aSquareGenerator curves: someCurves [
 
 	^ self new
 		  initializeWithPlayers: nameCollection
 		  withGear: aGear
 		  withBoardLength: aBoardLength
 		  withGenerator: aSquareGenerator
+		  withCurves: someCurves
 ]
 
 { #category : #initialization }
@@ -41,7 +43,7 @@ RallyGame >> advance [
 	board applySquareEffect: nextCar.
 	to := board findCar: nextCar.
 
-	curves car: nextCar movedFrom: from to: to
+	curves do: [ :eachCurve | eachCurve car: nextCar movedFrom: from to: to ] 
 ]
 
 { #category : #initialization }
@@ -51,7 +53,7 @@ RallyGame >> carNamed: aCarName [
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength [
+RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withCurves: someCurves [
 
 	| aSquareGenerator |
 	aSquareGenerator := SquareGenerator new.
@@ -60,16 +62,18 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 		withGear: aGear
 		withBoardLength: aBoardLength
 		withGenerator: aSquareGenerator
+		withCurves: someCurves 
+		
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator [
+RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator withCurves: someCurves [
 
 	board := Board length: aBoardLength withGenerator: aSquareGenerator .
 	
 	cars := nameCollection collect: [ :name | Car name: name gear: aGear ].
 	board startingCars: cars .
-	curves := Curve start: 2 end: 6 difficulty: 1
+	curves := someCurves 
 	
 	
 	 

@@ -5,7 +5,8 @@ Class {
 		'gear',
 		'name',
 		'currentGear',
-		'shouldLoseTurn'
+		'shouldLoseTurn',
+		'tires'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -40,7 +41,14 @@ Car >> initializeWith: aName gear: aGear [
 	name := aName.
 	gear := aGear.
 	currentGear := 1.
-	shouldLoseTurn := false
+	shouldLoseTurn := false.
+	tires := 3
+]
+
+{ #category : #'as yet unclassified' }
+Car >> loseTire [
+
+	tires := tires - 1
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,6 +86,11 @@ Car >> shiftUpGear [
 
 	currentGear = 5 ifTrue: [ Error signal: 'Cannot Shift Up In Gear Five' ].
 	currentGear := currentGear + 1
+]
+
+{ #category : #'as yet unclassified' }
+Car >> tires [
+	^ tires
 ]
 
 { #category : #'as yet unclassified' }

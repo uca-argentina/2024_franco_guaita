@@ -40,6 +40,12 @@ RallyGame >> advance [
 ]
 
 { #category : #initialization }
+RallyGame >> carNamed: aCarName [
+
+	^ cars detect: [ :car | car name = aCarName ]
+]
+
+{ #category : #initialization }
 RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength [
 
 	| aSquareGenerator |
@@ -89,9 +95,8 @@ RallyGame >> nextCar [
 { #category : #initialization }
 RallyGame >> positionOf: aCarName [
 
-	| vcar |
-	vcar := cars detect: [ :car | car name = aCarName ].
-	^ board findCar: vcar
+	
+	^ board findCar: (self carNamed: aCarName )
 ]
 
 { #category : #'as yet unclassified' }

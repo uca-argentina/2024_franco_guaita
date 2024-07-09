@@ -713,3 +713,71 @@ RallyGameTest >> test23WhenAllCarsHaveNoTiresLeftThenWinnerIsTheNearestCarToTheE
 
 	self assert: aGame isOver
 ]
+
+{ #category : #tests }
+RallyGameTest >> test24WhenACarGoesThroughTwoDifferentCurvesInOneTurnThenCarLosesTwoTires [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new.
+
+
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	gear := {
+		        (LoadedDie sequence: #( 8 )).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection
+		              with: (Curve start: 2 end: 4 difficulty: 2)
+		              with: (Curve start: 6 end: 8 difficulty: 2)
+		              with: (Curve start: 10 end: 13 difficulty: 2).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 30
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	aGame advance.
+
+	self assert: (aGame positionOf: 'Juan') equals: 9.
+	self assert: (aGame positionOf: 'Agus') equals: 1.
+	self assert: (aGame tiresOf: 'Juan') equals: 1.
+	self assert: (aGame tiresOf: 'Agus') equals: 3.
+
+]
+
+{ #category : #tests }
+RallyGameTest >> test25WhenACarGoesThroughThreeDifferentCurvesInOneTurnThenCarLosesThreeTires [
+
+	| aGame gear nameCollection squareGenerator someSquares someCurves |
+	someSquares := OrderedCollection with: PavementSquare new.
+
+
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	gear := {
+		        (LoadedDie sequence: #( 14 )).
+		        (LoadedDie sequence: #( 1 2 1 1 )) }.
+
+	someCurves := OrderedCollection
+		              with: (Curve start: 2 end: 4 difficulty: 2)
+		              with: (Curve start: 6 end: 8 difficulty: 2)
+		              with: (Curve start: 10 end: 13 difficulty: 2).
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 30
+		         generator: squareGenerator
+		         curves: someCurves.
+
+	aGame advance.
+
+	self assert: (aGame positionOf: 'Juan') equals: 15.
+	self assert: (aGame positionOf: 'Agus') equals: 1.
+	self assert: (aGame tiresOf: 'Juan') equals: 0.
+	self assert: (aGame tiresOf: 'Agus') equals: 3.
+
+]

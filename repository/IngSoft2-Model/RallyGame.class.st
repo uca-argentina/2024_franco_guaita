@@ -22,27 +22,6 @@ RallyGame class >> players: nameCollection boardLength: aBoardLength curves: som
 ]
 
 { #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength curves: someCurves [
-
-	^ self new
-		  initializeWithPlayers: nameCollection
-		  withGear: aGear
-		  withBoardLength: aBoardLength
-		  withCurves: someCurves
-]
-
-{ #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength generator: aSquareGenerator curves: someCurves [
-
-	^ self new
-		  initializeWithPlayers: nameCollection
-		  withGear: aGear
-		  withBoardLength: aBoardLength
-		  withGenerator: aSquareGenerator
-		  withCurves: someCurves
-]
-
-{ #category : #'as yet unclassified' }
 RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength generator: aSquareGenerator curves: someCurves lengthInKm: aKmLength [
 
 	^ self new
@@ -136,17 +115,15 @@ RallyGame >> isOver [
 	^ (cars anySatisfy: [ :car |
 		   (self positionOf: car name) = board size ]) or:
 		  (cars allSatisfy: [ :car | car noTiresLeft ])
-	"^ board last isNotEmpty ."
 ]
 
 { #category : #'as yet unclassified' }
-RallyGame >> kilometersOf: aCarName [ 
+RallyGame >> kilometersOf: aCarName [
+
 	| position kmPerSquare |
-	position := self positionOf: aCarName .
-	kmPerSquare := lenghtInKm / board size .
+	position := self positionOf: aCarName.
+	kmPerSquare := lenghtInKm / board size.
 	^ kmPerSquare * (position - 1)
-	
-	
 ]
 
 { #category : #initialization }
@@ -208,11 +185,13 @@ RallyGame >> tiresOf: aCarName [
 
 { #category : #initialization }
 RallyGame >> winner [
-	
+
 	| winnerCar sortedCars |
 	self isOver ifFalse: [ Error signal: 'Theres no winner yet' ].
-	
-	sortedCars := cars sorted: [ :aCar :anotherCar | (self positionOf: aCar name) > (self positionOf: anotherCar name) ].
-	winnerCar := sortedCars first .
-	^winnerCar name
+
+	sortedCars := cars sorted: [ :aCar :anotherCar |
+		              (self positionOf: aCar name)
+		              > (self positionOf: anotherCar name) ].
+	winnerCar := sortedCars first.
+	^ winnerCar name
 ]

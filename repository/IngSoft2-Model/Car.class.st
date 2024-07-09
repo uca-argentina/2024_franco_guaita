@@ -12,12 +12,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #accessing }
-Car class >> name: aName [
-
-	^ self new initializeWith: aName.
-]
-
 { #category : #'as yet unclassified' }
 Car class >> name: aName gear: aGear [
 

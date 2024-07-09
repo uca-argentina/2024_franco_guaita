@@ -36,9 +36,3 @@ Square >> park: aCar [
 
 	carsIn add: aCar .
 ]
-
-{ #category : #'as yet unclassified' }
-Square >> visit: aCar [
-
-	self subclassResponsibility 
-]

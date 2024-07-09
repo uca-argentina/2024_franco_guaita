@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #accessing }
-Board class >> length: aLength withGenerator: aSquareGenerator [
+Board class >> length: aLength withGenerator: aSquareGenerator withCars: someCars [
 
-	^ self new initializeWith: aLength withGenerator: aSquareGenerator
+	^ self new initializeWith: aLength withGenerator: aSquareGenerator withCars: someCars 
 ]
 
 { #category : #initialization }
@@ -33,10 +33,11 @@ Board >> findCar: aCar [
 ]
 
 { #category : #initialization }
-Board >> initializeWith: aLength withGenerator: aSquareGenerator [
+Board >> initializeWith: aLength withGenerator: aSquareGenerator withCars: someCars [
 
 	gameboard := OrderedCollection new: aLength.
-	aLength timesRepeat: [ gameboard add: aSquareGenerator generate ]
+	aLength timesRepeat: [ gameboard add: aSquareGenerator generate ].
+	someCars do: [ :car | (gameboard at: 1) park: car ]
 ]
 
 { #category : #initialization }
@@ -59,12 +60,4 @@ Board >> moveCar: aCar dieNumber: aDieNumber [
 Board >> size [
 
 	^ gameboard size
-]
-
-{ #category : #initialization }
-Board >> startingCars: someCars [
-	
-	someCars do: [ :car | (gameboard at: 1) park: car ].
-	
-	
 ]

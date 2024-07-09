@@ -99,14 +99,14 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 { #category : #initialization }
 RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator withCurves: someCurves withKm: aKmLength [
 
-	board := Board length: aBoardLength withGenerator: aSquareGenerator .
 	cars := nameCollection collect: [ :name | Car name: name gear: aGear ].
-	board startingCars: cars .
-	curves := someCurves .
-	lenghtInKm := aKmLength .
-	
-	
-	 
+	board := Board
+		         length: aBoardLength
+		         withGenerator: aSquareGenerator
+		         withCars: cars.
+
+	curves := someCurves.
+	lenghtInKm := aKmLength
 ]
 
 { #category : #initialization }

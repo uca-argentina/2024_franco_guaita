@@ -42,11 +42,14 @@ Board >> initializeWith: aLength withGenerator: aSquareGenerator [
 { #category : #initialization }
 Board >> moveCar: aCar dieNumber: aDieNumber [
 	
-	| currentPosition |
+	| currentPosition nextPosition |
 	currentPosition := self findCar: aCar.
 	
+	nextPosition := (currentPosition + aDieNumber ) min: gameboard size.
+	
+	
 	(gameboard  at: currentPosition )leaves: aCar.
-	(gameboard  at: currentPosition + aDieNumber )park: aCar.
+	(gameboard  at: nextPosition )park: aCar.
 	
 
 	

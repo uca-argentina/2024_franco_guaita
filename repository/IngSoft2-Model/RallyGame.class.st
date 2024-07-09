@@ -11,6 +11,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+RallyGame class >> players: nameCollection boardLength: aBoardLength curves: someCurves [
+
+	^ self new
+		  initializeWithPlayers: nameCollection
+		  withBoardLength: aBoardLength
+		  withCurves: someCurves
+]
+
+{ #category : #'as yet unclassified' }
 RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength curves: someCurves [
 
 	^ self new
@@ -50,6 +59,33 @@ RallyGame >> advance [
 RallyGame >> carNamed: aCarName [
 
 	^ cars detect: [ :car | car name = aCarName ]
+]
+
+{ #category : #'as yet unclassified' }
+RallyGame >> gearOf: aCarName [
+
+	| aCar |
+	aCar := self carNamed: aCarName.
+
+	^ aCar currentGear 
+]
+
+{ #category : #initialization }
+RallyGame >> initializeWithPlayers: nameCollection withBoardLength: aBoardLength withCurves: someCurves [
+
+	| defaultGear |
+	defaultGear := {
+		               (Die min: 1 max: 3).
+		               (Die min: 2 max: 4).
+		               (Die min: 5 max: 8).
+		               (Die min: 7 max: 11).
+		               (Die min: 1 max: 20) } asOrderedCollection.
+
+	^ self
+		  initializeWithPlayers: nameCollection
+		  withGear: defaultGear
+		  withBoardLength: aBoardLength
+		  withCurves: someCurves
 ]
 
 { #category : #initialization }
@@ -101,6 +137,15 @@ RallyGame >> nextCar [
 		cars addLast: currentCar ].
 
 	^ currentCar
+]
+
+{ #category : #initialization }
+RallyGame >> nextToPlay [
+
+	| car |
+	car := self nextCar .
+	cars addFirst: car .
+	^ car name
 ]
 
 { #category : #initialization }

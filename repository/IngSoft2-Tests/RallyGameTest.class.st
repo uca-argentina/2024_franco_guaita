@@ -781,3 +781,42 @@ RallyGameTest >> test25WhenACarGoesThroughThreeDifferentCurvesInOneTurnThenCarLo
 	self assert: (aGame tiresOf: 'Agus') equals: 3.
 
 ]
+
+{ #category : #tests }
+RallyGameTest >> test26ARandomGameEnds [
+
+	| aGame nameCollection |
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+
+	aGame := RallyGame
+		         players: nameCollection
+		         boardLength: 100
+		         curves: {  } asOrderedCollection.
+
+	[aGame isOver] whileFalse: [ aGame advance ] .
+
+]
+
+{ #category : #tests }
+RallyGameTest >> test27ARandomGameWithShiftsEnds [
+
+	| aGame nameCollection nextToPlay currentGear actions action |
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+
+	aGame := RallyGame
+		         players: nameCollection
+		         boardLength: 100
+		         curves: {  } asOrderedCollection.
+
+
+
+
+	[ aGame isOver ] whileFalse: [
+		actions := OrderedCollection with: [ aGame advance ].
+		nextToPlay := aGame nextToPlay.
+		currentGear := aGame gearOf: nextToPlay.
+		currentGear < 5 ifTrue: [ actions add: [ aGame shiftUpGear ] ].
+		currentGear > 1 ifTrue: [ actions add: [ aGame shiftDownGear ] ].
+		action := actions atRandom.
+		action value ]
+]

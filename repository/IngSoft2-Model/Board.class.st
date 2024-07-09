@@ -63,7 +63,7 @@ Board >> move: aCar by: aNumberOfTimes [
 	(squares at: nextPosition) park: aCar
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 Board >> size [
 
 	^ squares size

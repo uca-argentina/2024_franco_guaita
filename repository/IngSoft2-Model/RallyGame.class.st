@@ -66,7 +66,7 @@ RallyGame >> initializeWithPlayers: someNames withBoardLength: aBoardLength with
 		               (Die min: 1 max: 20) } asOrderedCollection.
 
 	^ self
-		  initializeWithPlayers: someNames 
+		  initializeWithPlayers: someNames
 		  withGear: defaultGear
 		  withBoardLength: aBoardLength
 		  withCurves: someCurves

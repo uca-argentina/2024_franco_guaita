@@ -10,13 +10,13 @@ Class {
 { #category : #'as yet unclassified' }
 Square >> applyEffectTo: aCar in: aBoard [
 
-	self subclassResponsibility 
+	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
 Square >> includes: aCar [
 
-	^ carsIn includes: aCar 
+	^ carsIn includes: aCar
 ]
 
 { #category : #'as yet unclassified' }
@@ -28,7 +28,7 @@ Square >> initialize [
 { #category : #'as yet unclassified' }
 Square >> leaves: aCar [
 
-	carsIn remove: aCar 
+	carsIn remove: aCar
 ]
 
 { #category : #'as yet unclassified' }

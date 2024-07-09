@@ -6,7 +6,6 @@ Class {
 
 { #category : #'as yet unclassified' }
 PavementSquare >> applyEffectTo: aCar in: aBoard [
-	
-	^ self
 
+	^ self
 ]

@@ -70,7 +70,7 @@ Car >> moveIn: aBoard [
 
 	| dieNumber |
 	dieNumber := (gear at: currentGear) throw.
-	aBoard moveCar: self dieNumber: dieNumber
+	aBoard move: self by: dieNumber
 ]
 
 { #category : #'as yet unclassified' }

@@ -7,7 +7,7 @@ Class {
 { #category : #'as yet unclassified' }
 RubberSquare >> applyEffectTo: aCar in: aBoard [
 
-	aBoard moveCar: aCar dieNumber: 2.
+	aBoard move: aCar by: 2.
 	
 	
 	

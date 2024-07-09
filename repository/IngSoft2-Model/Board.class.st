@@ -2,7 +2,7 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'gameboard',
+		'squares',
 		'curves'
 	],
 	#category : #'IngSoft2-Model'
@@ -34,37 +34,37 @@ Board >> applySquareEffect: aCar [
 
 	| currentPosition square |
 	currentPosition := self findCar: aCar.
-	square := gameboard at: currentPosition.
+	square := squares at: currentPosition.
 	square applyEffectTo: aCar in: self
 ]
 
 { #category : #initialization }
 Board >> findCar: aCar [
 
-	^ gameboard detectIndex: [ :square | square includes: aCar ]
+	^ squares detectIndex: [ :square | square includes: aCar ]
 ]
 
 { #category : #initialization }
 Board >> initializeWith: aLength withGenerator: aSquareGenerator withCars: someCars withCurves: someCurves [
 
-	gameboard := OrderedCollection new: aLength.
-	aLength timesRepeat: [ gameboard add: aSquareGenerator generate ].
-	someCars do: [ :car | (gameboard at: 1) park: car ].
+	squares := OrderedCollection new: aLength.
+	aLength timesRepeat: [ squares add: aSquareGenerator generate ].
+	someCars do: [ :car | (squares at: 1) park: car ].
 	curves := someCurves
 ]
 
 { #category : #initialization }
-Board >> moveCar: aCar dieNumber: aDieNumber [
+Board >> move: aCar by: aNumberOfTimes [
 
 	| currentPosition nextPosition |
 	currentPosition := self findCar: aCar.
-	nextPosition := currentPosition + aDieNumber min: gameboard size.
-	(gameboard at: currentPosition) leaves: aCar.
-	(gameboard at: nextPosition) park: aCar
+	nextPosition := currentPosition + aNumberOfTimes min: squares size.
+	(squares at: currentPosition) leaves: aCar.
+	(squares at: nextPosition) park: aCar
 ]
 
 { #category : #initialization }
 Board >> size [
 
-	^ gameboard size
+	^ squares size
 ]

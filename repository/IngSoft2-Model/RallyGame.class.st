@@ -10,20 +10,20 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection boardLength: aBoardLength curves: someCurves lengthInKm: aKmLength [
+RallyGame class >> players: someNames boardLength: aBoardLength curves: someCurves lengthInKm: aKmLength [
 
 	^ self new
-		  initializeWithPlayers: nameCollection
+		  initializeWithPlayers: someNames
 		  withBoardLength: aBoardLength
 		  withCurves: someCurves
 		  withKm: aKmLength
 ]
 
 { #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength generator: aSquareGenerator curves: someCurves lengthInKm: aKmLength [
+RallyGame class >> players: someNames gear: aGear boardLength: aBoardLength generator: aSquareGenerator curves: someCurves lengthInKm: aKmLength [
 
 	^ self new
-		  initializeWithPlayers: nameCollection
+		  initializeWithPlayers: someNames
 		  withGear: aGear
 		  withBoardLength: aBoardLength
 		  withGenerator: aSquareGenerator
@@ -55,7 +55,7 @@ RallyGame >> gearOf: aCarName [
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withBoardLength: aBoardLength withCurves: someCurves withKm: aKmLength [
+RallyGame >> initializeWithPlayers: someNames withBoardLength: aBoardLength withCurves: someCurves withKm: aKmLength [
 
 	| defaultGear |
 	defaultGear := {
@@ -66,7 +66,7 @@ RallyGame >> initializeWithPlayers: nameCollection withBoardLength: aBoardLength
 		               (Die min: 1 max: 20) } asOrderedCollection.
 
 	^ self
-		  initializeWithPlayers: nameCollection
+		  initializeWithPlayers: someNames 
 		  withGear: defaultGear
 		  withBoardLength: aBoardLength
 		  withCurves: someCurves
@@ -74,12 +74,12 @@ RallyGame >> initializeWithPlayers: nameCollection withBoardLength: aBoardLength
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withCurves: someCurves withKm: aKmLength [
+RallyGame >> initializeWithPlayers: someNames withGear: aGear withBoardLength: aBoardLength withCurves: someCurves withKm: aKmLength [
 
 	| aSquareGenerator |
 	aSquareGenerator := SquareGenerator new.
 	self
-		initializeWithPlayers: nameCollection
+		initializeWithPlayers: someNames
 		withGear: aGear
 		withBoardLength: aBoardLength
 		withGenerator: aSquareGenerator
@@ -88,9 +88,9 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator withCurves: someCurves withKm: aKmLength [
+RallyGame >> initializeWithPlayers: someNames withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator withCurves: someCurves withKm: aKmLength [
 
-	cars := nameCollection collect: [ :name | Car name: name gear: aGear ].
+	cars := someNames collect: [ :name | Car name: name gear: aGear ].
 	board := Board
 		         length: aBoardLength
 		         withGenerator: aSquareGenerator

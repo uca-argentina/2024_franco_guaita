@@ -26,9 +26,7 @@ Board >> advance: aCar [
 	aCar moveIn: self.
 	self applySquareEffect: aCar.
 	to := self findCar: aCar.
-
-	curves do: [ :eachCurve |
-		eachCurve car: aCar movedFrom: from to: to ]
+	curves do: [ :eachCurve | eachCurve car: aCar movedFrom: from to: to ]
 ]
 
 { #category : #initialization }
@@ -36,18 +34,14 @@ Board >> applySquareEffect: aCar [
 
 	| currentPosition square |
 	currentPosition := self findCar: aCar.
-
 	square := gameboard at: currentPosition.
-
 	square applyEffectTo: aCar in: self
 ]
 
 { #category : #initialization }
 Board >> findCar: aCar [
-	
-	^ gameboard detectIndex: [ :square | square includes: aCar ]
 
-	
+	^ gameboard detectIndex: [ :square | square includes: aCar ]
 ]
 
 { #category : #initialization }
@@ -61,18 +55,12 @@ Board >> initializeWith: aLength withGenerator: aSquareGenerator withCars: someC
 
 { #category : #initialization }
 Board >> moveCar: aCar dieNumber: aDieNumber [
-	
+
 	| currentPosition nextPosition |
 	currentPosition := self findCar: aCar.
-	
-	nextPosition := (currentPosition + aDieNumber ) min: gameboard size.
-	
-	
-	(gameboard  at: currentPosition )leaves: aCar.
-	(gameboard  at: nextPosition )park: aCar.
-	
-
-	
+	nextPosition := currentPosition + aDieNumber min: gameboard size.
+	(gameboard at: currentPosition) leaves: aCar.
+	(gameboard at: nextPosition) park: aCar
 ]
 
 { #category : #initialization }

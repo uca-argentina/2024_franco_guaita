@@ -27,13 +27,13 @@ Car >> addTurnInCurve [
 { #category : #testing }
 Car >> canPlay [
 
-	^ (shouldLoseTurn not ) and: (tires > 0)
+	^ shouldLoseTurn not and: tires > 0
 ]
 
 { #category : #'as yet unclassified' }
 Car >> currentGear [
-	^ currentGear  
 
+	^ currentGear
 ]
 
 { #category : #'as yet unclassified' }
@@ -68,17 +68,15 @@ Car >> loseTurn [
 { #category : #'as yet unclassified' }
 Car >> moveIn: aBoard [
 
-	| dieNumber|
-	dieNumber := (gear at: currentGear) throw .
-	aBoard moveCar: self dieNumber: dieNumber . 
-
-	 
+	| dieNumber |
+	dieNumber := (gear at: currentGear) throw.
+	aBoard moveCar: self dieNumber: dieNumber
 ]
 
 { #category : #'as yet unclassified' }
-Car >> name [ 
+Car >> name [
 
-	^ name.
+	^ name
 ]
 
 { #category : #'as yet unclassified' }
@@ -90,20 +88,22 @@ Car >> noTiresLeft [
 { #category : #'as yet unclassified' }
 Car >> shiftDownGear [
 
-	currentGear = 1 ifTrue: [ Error signal: 'Cannot Shift Down In Gear One' ].
-
+	currentGear = 1 ifTrue: [
+		Error signal: 'Cannot Shift Down In Gear One' ].
 	currentGear := currentGear - 1
 ]
 
 { #category : #'as yet unclassified' }
 Car >> shiftUpGear [
 
-	currentGear = 5 ifTrue: [ Error signal: 'Cannot Shift Up In Gear Five' ].
+	currentGear = 5 ifTrue: [
+		Error signal: 'Cannot Shift Up In Gear Five' ].
 	currentGear := currentGear + 1
 ]
 
 { #category : #'as yet unclassified' }
 Car >> tires [
+
 	^ tires
 ]
 

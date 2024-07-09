@@ -22,7 +22,7 @@ Die >> initializeWith: aMin max: aMax [
 ]
 
 { #category : #initialization }
-Die >> throw [ 
+Die >> throw [
 
-	^(min to: max) atRandom .
+	^ (min to: max) atRandom
 ]

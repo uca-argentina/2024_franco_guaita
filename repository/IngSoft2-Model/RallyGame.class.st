@@ -51,8 +51,7 @@ RallyGame >> gearOf: aCarName [
 
 	| aCar |
 	aCar := self carNamed: aCarName.
-
-	^ aCar currentGear 
+	^ aCar currentGear
 ]
 
 { #category : #initialization }
@@ -97,7 +96,6 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 		         withGenerator: aSquareGenerator
 		         withCars: cars
 		         withCurves: someCurves.
-
 	lenghtInKm := aKmLength
 ]
 
@@ -124,12 +122,10 @@ RallyGame >> nextCar [
 	| currentCar |
 	currentCar := cars removeFirst.
 	cars addLast: currentCar.
-
 	[ currentCar canPlay ] whileFalse: [
 		currentCar turnLost.
 		currentCar := cars removeFirst.
 		cars addLast: currentCar ].
-
 	^ currentCar
 ]
 
@@ -137,25 +133,23 @@ RallyGame >> nextCar [
 RallyGame >> nextToPlay [
 
 	| car |
-	car := self nextCar .
-	cars addFirst: car .
+	car := self nextCar.
+	cars addFirst: car.
 	^ car name
 ]
 
 { #category : #initialization }
 RallyGame >> positionOf: aCarName [
 
-	
-	^ board findCar: (self carNamed: aCarName )
+	^ board findCar: (self carNamed: aCarName)
 ]
 
 { #category : #'as yet unclassified' }
 RallyGame >> shiftDownGear [
 
 	| nextCar |
-	self throwIfGameIsOver .
+	self throwIfGameIsOver.
 	nextCar := self nextCar.
-
 	nextCar shiftDownGear
 ]
 
@@ -163,7 +157,7 @@ RallyGame >> shiftDownGear [
 RallyGame >> shiftUpGear [
 
 	| nextCar |
-	self throwIfGameIsOver .
+	self throwIfGameIsOver.
 	nextCar := self nextCar.
 	nextCar shiftUpGear
 ]
@@ -179,7 +173,6 @@ RallyGame >> tiresOf: aCarName [
 
 	| aCar |
 	aCar := self carNamed: aCarName.
-
 	^ aCar tires
 ]
 
@@ -188,7 +181,6 @@ RallyGame >> winner [
 
 	| winnerCar sortedCars |
 	self isOver ifFalse: [ Error signal: 'Theres no winner yet' ].
-
 	sortedCars := cars sorted: [ :aCar :anotherCar |
 		              (self positionOf: aCar name)
 		              > (self positionOf: anotherCar name) ].

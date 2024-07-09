@@ -22,10 +22,8 @@ Curve >> car: aCar movedFrom: aFromPosition to: aToPosition [
 	landsInCurve := aToPosition between: start and: end.
 	skipsCurve := aFromPosition < start and: aToPosition > end.
 	isInCurve := aFromPosition between: start and: end.
-
 	skipsCurve ifTrue: [ aCar loseTire ].
 	landsInCurve ifTrue: [ aCar addTurnInCurve ].
-
 	(isInCurve and: landsInCurve not) ifTrue: [
 		aCar turnsInCurve < difficulty ifTrue: [ aCar loseTire ].
 		aCar curveLeft ]

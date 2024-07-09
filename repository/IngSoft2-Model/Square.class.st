@@ -34,5 +34,5 @@ Square >> leaves: aCar [
 { #category : #'as yet unclassified' }
 Square >> park: aCar [
 
-	carsIn add: aCar .
+	carsIn add: aCar
 ]

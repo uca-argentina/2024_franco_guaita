@@ -869,3 +869,53 @@ RallyGameTest >> test29WhenACarPostionIsTenAndBoardLengthIsOneHundredAndLengthIn
 
 	self assert: (aGame kilometersOf: 'Juan') equals: 20
 ]
+
+{ #category : #tests }
+RallyGameTest >> test30ErrorWhenACarShiftsUpGearAndGameIsOver [
+
+	| aGame squareGenerator |
+	squareGenerator := LoadedSquareGenerator withSquares:
+		                   { PavementSquare new } asOrderedCollection.
+	aGame := RallyGame
+		         players: { 'Juan' } asOrderedCollection
+		         gear: { (LoadedDie sequence: #( 1 )) }
+		         boardLength: 5
+		         generator: squareGenerator
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+
+	self
+		should: [ aGame shiftUpGear  ]
+		raise: Error
+		withMessage: 'Game is over!'
+]
+
+{ #category : #tests }
+RallyGameTest >> test31ErrorWhenACarShiftsDownGearAndGameIsOver [
+
+	| aGame squareGenerator |
+	squareGenerator := LoadedSquareGenerator withSquares:
+		                   { PavementSquare new } asOrderedCollection.
+	aGame := RallyGame
+		         players: { 'Juan' } asOrderedCollection
+		         gear: { (LoadedDie sequence: #( 1 )) }
+		         boardLength: 5
+		         generator: squareGenerator
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
+
+	aGame advance.
+	aGame advance.
+	aGame advance.
+	aGame advance.
+
+	self
+		should: [ aGame shiftDownGear  ]
+		raise: Error
+		withMessage: 'Game is over!'
+]

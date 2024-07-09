@@ -159,10 +159,11 @@ RallyGame >> positionOf: aCarName [
 
 { #category : #'as yet unclassified' }
 RallyGame >> shiftDownGear [
-	
+
 	| nextCar |
-	nextCar := self nextCar .
-	
+	self isOver ifTrue: [ Error signal: 'Game is over!' ].
+	nextCar := self nextCar.
+
 	nextCar shiftDownGear
 ]
 
@@ -170,6 +171,7 @@ RallyGame >> shiftDownGear [
 RallyGame >> shiftUpGear [
 
 	| nextCar |
+	self isOver ifTrue: [ Error signal: 'Game is over!' ].
 	nextCar := self nextCar.
 	nextCar shiftUpGear
 ]

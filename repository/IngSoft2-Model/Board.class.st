@@ -2,15 +2,33 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'gameboard'
+		'gameboard',
+		'curves'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #accessing }
-Board class >> length: aLength withGenerator: aSquareGenerator withCars: someCars [
+Board class >> length: aLength withGenerator: aSquareGenerator withCars: someCars withCurves: someCurves [
 
-	^ self new initializeWith: aLength withGenerator: aSquareGenerator withCars: someCars 
+	^ self new
+		  initializeWith: aLength
+		  withGenerator: aSquareGenerator
+		  withCars: someCars
+		  withCurves: someCurves
+]
+
+{ #category : #initialization }
+Board >> advance: aCar [
+
+	| from to |
+	from := self findCar: aCar.
+	aCar moveIn: self.
+	self applySquareEffect: aCar.
+	to := self findCar: aCar.
+
+	curves do: [ :eachCurve |
+		eachCurve car: aCar movedFrom: from to: to ]
 ]
 
 { #category : #initialization }
@@ -33,11 +51,12 @@ Board >> findCar: aCar [
 ]
 
 { #category : #initialization }
-Board >> initializeWith: aLength withGenerator: aSquareGenerator withCars: someCars [
+Board >> initializeWith: aLength withGenerator: aSquareGenerator withCars: someCars withCurves: someCurves [
 
 	gameboard := OrderedCollection new: aLength.
 	aLength timesRepeat: [ gameboard add: aSquareGenerator generate ].
-	someCars do: [ :car | (gameboard at: 1) park: car ]
+	someCars do: [ :car | (gameboard at: 1) park: car ].
+	curves := someCurves
 ]
 
 { #category : #initialization }

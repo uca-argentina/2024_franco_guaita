@@ -4,8 +4,6 @@ Class {
 	#instVars : [
 		'board',
 		'cars',
-		'die',
-		'curves',
 		'lenghtInKm'
 	],
 	#category : #'IngSoft2-Model'
@@ -36,16 +34,10 @@ RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength
 { #category : #initialization }
 RallyGame >> advance [
 
-	| nextCar from to |
-	self throwIfGameIsOver .
+	| nextCar |
+	self throwIfGameIsOver.
 	nextCar := self nextCar.
-
-	from := board findCar: nextCar.
-	nextCar moveIn: board.
-	board applySquareEffect: nextCar.
-	to := board findCar: nextCar.
-
-	curves do: [ :eachCurve | eachCurve car: nextCar movedFrom: from to: to ] 
+	board advance: nextCar
 ]
 
 { #category : #initialization }
@@ -103,9 +95,9 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 	board := Board
 		         length: aBoardLength
 		         withGenerator: aSquareGenerator
-		         withCars: cars.
+		         withCars: cars
+		         withCurves: someCurves.
 
-	curves := someCurves.
 	lenghtInKm := aKmLength
 ]
 

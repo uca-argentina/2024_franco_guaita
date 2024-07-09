@@ -37,7 +37,7 @@ RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength
 RallyGame >> advance [
 
 	| nextCar from to |
-	self isOver ifTrue: [ Error signal: 'Game is over!' ].
+	self throwIfGameIsOver .
 	nextCar := self nextCar.
 
 	from := board findCar: nextCar.
@@ -161,7 +161,7 @@ RallyGame >> positionOf: aCarName [
 RallyGame >> shiftDownGear [
 
 	| nextCar |
-	self isOver ifTrue: [ Error signal: 'Game is over!' ].
+	self throwIfGameIsOver .
 	nextCar := self nextCar.
 
 	nextCar shiftDownGear
@@ -171,9 +171,15 @@ RallyGame >> shiftDownGear [
 RallyGame >> shiftUpGear [
 
 	| nextCar |
-	self isOver ifTrue: [ Error signal: 'Game is over!' ].
+	self throwIfGameIsOver .
 	nextCar := self nextCar.
 	nextCar shiftUpGear
+]
+
+{ #category : #initialization }
+RallyGame >> throwIfGameIsOver [
+
+	self isOver ifTrue: [ Error signal: 'Game is over!' ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -28,7 +28,8 @@ RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo
 		         gear: { (LoadedDie sequence: #( 1 )) }
 		         boardLength: 5
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame advance.
 
@@ -39,13 +40,15 @@ RallyGameTest >> test01WhenPositionOfPlayerIsOneAndTurnIsPlayedThenPositionIsTwo
 RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
+	squareGenerator := LoadedSquareGenerator withSquares:
+		                   { PavementSquare new } asOrderedCollection.
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 1 )) }
 		         boardLength: 5
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -58,67 +61,63 @@ RallyGameTest >> test02WhenPositionOfPlayerIsFiveThenPlayerWinsTheGame [
 
 { #category : #tests }
 RallyGameTest >> test03ErrorWhenPositionOfPlayerIsFiveThenPlayerCannotPlayTurn [
-	
+
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
+	squareGenerator := LoadedSquareGenerator withSquares:
+		                   { PavementSquare new } asOrderedCollection.
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 1 )) }
 		         boardLength: 5
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
-	
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
+
 	aGame advance.
 	aGame advance.
 	aGame advance.
 	aGame advance.
-	
+
 	self
-		should: [ aGame advance. ]
+		should: [ aGame advance ]
 		raise: Error
 		withMessage: 'Game is over!'
-	
-	
-	
-	
-	
 ]
 
 { #category : #tests }
 RallyGameTest >> test04ErrorWhenTheresNoWinnerYet [
-	
+
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
+	squareGenerator := LoadedSquareGenerator withSquares:
+		                   { PavementSquare new } asOrderedCollection.
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 1 )) }
 		         boardLength: 5
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
-	
-	
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
+
+
 	self
-		should: [ aGame winner]
+		should: [ aGame winner ]
 		raise: Error
 		withMessage: 'Theres no winner yet'
-	
-	
-	
-	
-	
 ]
 
 { #category : #tests }
 RallyGameTest >> test05WhenDieThrowsTwoThenCarPositionIsThree [
 
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
+	squareGenerator := LoadedSquareGenerator withSquares:
+		                   { PavementSquare new } asOrderedCollection.
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 2 )) }
 		         boardLength: 5
-		        generator: squareGenerator
-		         curves: OrderedCollection new.
+		         generator: squareGenerator
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame advance.
 
@@ -128,24 +127,20 @@ RallyGameTest >> test05WhenDieThrowsTwoThenCarPositionIsThree [
 
 { #category : #tests }
 RallyGameTest >> test06WhenGameStartsThenCarsAreInPositionOne [
-	
+
 	| aGame squareGenerator |
-	squareGenerator := LoadedSquareGenerator withSquares:  { PavementSquare new } asOrderedCollection .
+	squareGenerator := LoadedSquareGenerator withSquares:
+		                   { PavementSquare new } asOrderedCollection.
 	aGame := RallyGame
 		         players: { 'Juan' } asOrderedCollection
 		         gear: { (LoadedDie sequence: #( 2 )) }
 		         boardLength: 5
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
-	
-	
-	self assert: (aGame positionOf: 'Juan') equals: 1.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
-	
-	
-	
-	
-	
+
+	self assert: (aGame positionOf: 'Juan') equals: 1
 ]
 
 { #category : #tests }
@@ -163,8 +158,9 @@ RallyGameTest >> test07WhenCarShiftUpGearThenAdvanceWillUseTheSecondLoadedDie [
 		         gear: gear
 		         boardLength: 5
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
-		
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
+
 	aGame shiftUpGear.
 
 	aGame advance.
@@ -189,7 +185,8 @@ RallyGameTest >> test08WhenTwoPlayersAdvanceThenBothPlayersAreInPositionThree [
 		         gear: gear
 		         boardLength: 5
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -214,7 +211,8 @@ RallyGameTest >> test09WhenTwoPlayersPlayTwoDifferentTurnsThenPositionsShouldBeD
 		         gear: gear
 		         boardLength: 10
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame shiftUpGear.
 	aGame advance.
@@ -241,7 +239,8 @@ RallyGameTest >> test10WhenCarLandsInRubberSquareThenPositionIsCurrentPlusTwo [
 		         gear: gear
 		         boardLength: 10
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame shiftUpGear.
 	aGame advance.
@@ -272,7 +271,8 @@ RallyGameTest >> test11WhenACarLandsInOilSquareThenCarShouldLoseNextTurn [
 		         gear: gear
 		         boardLength: 10
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -304,7 +304,8 @@ RallyGameTest >> test12WhenCarLoseATurnThenAfterTurnLostCarShouldBeAbleToPlay [
 		         gear: gear
 		         boardLength: 10
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -337,7 +338,8 @@ RallyGameTest >> test13WhenCarLandsInOilSquareThenCarShouldReduceGearInOne [
 		         gear: gear
 		         boardLength: 10
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	aGame shiftUpGear.
 	aGame shiftUpGear.
@@ -368,7 +370,8 @@ RallyGameTest >> test14WhenGameStartsAllCarsShouldHaveThreeTires [
 		         gear: gear
 		         boardLength: 20
 		         generator: squareGenerator
-		         curves: OrderedCollection new.
+		         curves: OrderedCollection new
+		         lengthInKm: 1000.
 
 	self assert: (aGame tiresOf: 'Juan') equals: 3.
 	self assert: (aGame tiresOf: 'Agus') equals: 3
@@ -380,7 +383,8 @@ RallyGameTest >> test15WhenACarGoesThroughAWholeCurveInOneTurnThenCarLoseOneTire
 	| aGame gear nameCollection squareGenerator someSquares someCurves |
 	someSquares := OrderedCollection with: PavementSquare new.
 
-	someCurves := OrderedCollection  with: (Curve start: 2 end: 6 difficulty: 1).
+	someCurves := OrderedCollection with:
+		              (Curve start: 2 end: 6 difficulty: 1).
 
 	nameCollection := OrderedCollection with: 'Juan'.
 	gear := {
@@ -393,9 +397,9 @@ RallyGameTest >> test15WhenACarGoesThroughAWholeCurveInOneTurnThenCarLoseOneTire
 		         gear: gear
 		         boardLength: 20
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
-	"Curva de 2 a 6 y dificultad 1"
 	aGame advance.
 
 
@@ -414,8 +418,9 @@ RallyGameTest >> test16WhenACarEntersInDifficultyOneCurveThenCarShouldLeaveTheCu
 	gear := {
 		        (LoadedDie sequence: #( 3 )).
 		        (LoadedDie sequence: #( 1 2 1 1 )) }.
-		
-	someCurves := OrderedCollection  with: (Curve start: 2 end: 6 difficulty: 1) .
+
+	someCurves := OrderedCollection with:
+		              (Curve start: 2 end: 6 difficulty: 1).
 
 	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
 	aGame := RallyGame
@@ -423,11 +428,10 @@ RallyGameTest >> test16WhenACarEntersInDifficultyOneCurveThenCarShouldLeaveTheCu
 		         gear: gear
 		         boardLength: 20
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 
-
-	"Curva de 2 a 6 y dificultad 1"
 	aGame advance.
 	aGame advance.
 
@@ -458,9 +462,8 @@ RallyGameTest >> test17WhenACarIsOnlyOneTurnOnADifficultyTwoCurveThenCarLoseOneT
 		         gear: gear
 		         boardLength: 20
 		         generator: squareGenerator
-		         curves: someCurves.
-
-	"Curva de 2 a 6 y dificultad 2"
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -473,17 +476,18 @@ RallyGameTest >> test17WhenACarIsOnlyOneTurnOnADifficultyTwoCurveThenCarLoseOneT
 RallyGameTest >> test18WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSquareEffectThenCarLoseOneTire [
 
 	| aGame gear nameCollection squareGenerator someSquares someCurves |
-	someSquares := OrderedCollection with: PavementSquare new
+	someSquares := OrderedCollection
+		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new.
-	
+
 	someSquares add: RubberSquare new.
-	someSquares add: PavementSquare  new.
-	someSquares add: PavementSquare  new.
-	someSquares add: PavementSquare  new.
+	someSquares add: PavementSquare new.
+	someSquares add: PavementSquare new.
+	someSquares add: PavementSquare new.
 
 	nameCollection := OrderedCollection with: 'Juan'.
 	gear := {
@@ -499,9 +503,8 @@ RallyGameTest >> test18WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSqua
 		         gear: gear
 		         boardLength: 20
 		         generator: squareGenerator
-		         curves: someCurves.
-
-	"Curva de 2 a 6 y dificultad 2"
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 
@@ -513,17 +516,18 @@ RallyGameTest >> test18WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSqua
 RallyGameTest >> test19WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSquareEffectAfterTwoTurnsThenCarDoesNotLoseTire [
 
 	| aGame gear nameCollection squareGenerator someSquares someCurves |
-	someSquares := OrderedCollection with: PavementSquare new
+	someSquares := OrderedCollection
+		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new
 		               with: PavementSquare new.
-	
+
 	someSquares add: RubberSquare new.
-	someSquares add: PavementSquare  new.
-	someSquares add: PavementSquare  new.
-	someSquares add: PavementSquare  new.
+	someSquares add: PavementSquare new.
+	someSquares add: PavementSquare new.
+	someSquares add: PavementSquare new.
 
 	nameCollection := OrderedCollection with: 'Juan'.
 	gear := {
@@ -539,7 +543,8 @@ RallyGameTest >> test19WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSqua
 		         gear: gear
 		         boardLength: 20
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -553,18 +558,17 @@ RallyGameTest >> test19WhenCarEntersADifficultyTwoCurveAndLeavesCurveDueToAnSqua
 RallyGameTest >> test20WhenCarPlaysGameAndGoesThroughTwoCurvesWithinTheDifficultyThenCarShouldKeepThreeTires [
 
 	| aGame gear nameCollection squareGenerator someSquares someCurves |
-	someSquares := OrderedCollection with: PavementSquare new .
-		       
+	someSquares := OrderedCollection with: PavementSquare new.
+
 
 	nameCollection := OrderedCollection with: 'Juan'.
 	gear := {
-		        (LoadedDie sequence: #( 2 3 3 4 4)).
+		        (LoadedDie sequence: #( 2 3 3 4 4 )).
 		        (LoadedDie sequence: #( 1 2 1 1 )) }.
 
-	someCurves := OrderedCollection with:
-		              (Curve start: 2 end: 8 difficulty: 2)
-		with:
-		              (Curve start: 12 end: 16 difficulty: 1).
+	someCurves := OrderedCollection
+		              with: (Curve start: 2 end: 8 difficulty: 2)
+		              with: (Curve start: 12 end: 16 difficulty: 1).
 
 	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
 	aGame := RallyGame
@@ -572,7 +576,8 @@ RallyGameTest >> test20WhenCarPlaysGameAndGoesThroughTwoCurvesWithinTheDifficult
 		         gear: gear
 		         boardLength: 30
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -593,7 +598,7 @@ RallyGameTest >> test21WhenACarLosesThreeTiresThenGameEndsForThatCar [
 
 	nameCollection := OrderedCollection with: 'Juan'.
 	gear := {
-		        (LoadedDie sequence: #( 2 3 3 4 4 5)).
+		        (LoadedDie sequence: #( 2 3 3 4 4 5 )).
 		        (LoadedDie sequence: #( 1 2 1 1 )) }.
 
 	someCurves := OrderedCollection
@@ -607,7 +612,8 @@ RallyGameTest >> test21WhenACarLosesThreeTiresThenGameEndsForThatCar [
 		         gear: gear
 		         boardLength: 30
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -615,11 +621,11 @@ RallyGameTest >> test21WhenACarLosesThreeTiresThenGameEndsForThatCar [
 	aGame advance.
 	aGame advance.
 	aGame advance.
-	
+
 
 	self assert: (aGame positionOf: 'Juan') equals: 22.
 	self assert: (aGame tiresOf: 'Juan') equals: 0.
-	self assert: (aGame isOver) 
+	self assert: aGame isOver
 ]
 
 { #category : #tests }
@@ -645,7 +651,8 @@ RallyGameTest >> test22WhenThereAreCarsWithTiresLeftAndOthersWithNoTiresLeftThen
 		         gear: gear
 		         boardLength: 30
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -690,7 +697,8 @@ RallyGameTest >> test23WhenAllCarsHaveNoTiresLeftThenWinnerIsTheNearestCarToTheE
 		         gear: gear
 		         boardLength: 30
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 	aGame advance.
@@ -737,15 +745,15 @@ RallyGameTest >> test24WhenACarGoesThroughTwoDifferentCurvesInOneTurnThenCarLose
 		         gear: gear
 		         boardLength: 30
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 
 	self assert: (aGame positionOf: 'Juan') equals: 9.
 	self assert: (aGame positionOf: 'Agus') equals: 1.
 	self assert: (aGame tiresOf: 'Juan') equals: 1.
-	self assert: (aGame tiresOf: 'Agus') equals: 3.
-
+	self assert: (aGame tiresOf: 'Agus') equals: 3
 ]
 
 { #category : #tests }
@@ -771,15 +779,15 @@ RallyGameTest >> test25WhenACarGoesThroughThreeDifferentCurvesInOneTurnThenCarLo
 		         gear: gear
 		         boardLength: 30
 		         generator: squareGenerator
-		         curves: someCurves.
+		         curves: someCurves
+		         lengthInKm: 1000.
 
 	aGame advance.
 
 	self assert: (aGame positionOf: 'Juan') equals: 15.
 	self assert: (aGame positionOf: 'Agus') equals: 1.
 	self assert: (aGame tiresOf: 'Juan') equals: 0.
-	self assert: (aGame tiresOf: 'Agus') equals: 3.
-
+	self assert: (aGame tiresOf: 'Agus') equals: 3
 ]
 
 { #category : #tests }
@@ -791,10 +799,10 @@ RallyGameTest >> test26ARandomGameEnds [
 	aGame := RallyGame
 		         players: nameCollection
 		         boardLength: 100
-		         curves: {  } asOrderedCollection.
+		         curves: {  } asOrderedCollection
+		         lengthInKm: 1000.
 
-	[aGame isOver] whileFalse: [ aGame advance ] .
-
+	[ aGame isOver ] whileFalse: [ aGame advance ]
 ]
 
 { #category : #tests }
@@ -806,7 +814,8 @@ RallyGameTest >> test27ARandomGameWithShiftsEnds [
 	aGame := RallyGame
 		         players: nameCollection
 		         boardLength: 100
-		         curves: {  } asOrderedCollection.
+		         curves: {  } asOrderedCollection
+		         lengthInKm: 1000.
 
 
 
@@ -819,4 +828,44 @@ RallyGameTest >> test27ARandomGameWithShiftsEnds [
 		currentGear > 1 ifTrue: [ actions add: [ aGame shiftDownGear ] ].
 		action := actions atRandom.
 		action value ]
+]
+
+{ #category : #tests }
+RallyGameTest >> test28WhenGameStartsThenCarKilometersDoneIsZero [
+
+	| aGame nameCollection |
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+
+	aGame := RallyGame
+		         players: nameCollection
+		         boardLength: 100
+		         curves: {  } asOrderedCollection
+		         lengthInKm: 1000.
+
+	self assert: (aGame kilometersOf: 'Juan') equals: 0
+]
+
+{ #category : #tests }
+RallyGameTest >> test29WhenACarPostionIsTenAndBoardLengthIsOneHundredAndLengthInKilometersIsTwoHundredThenCarKilometersDoneIsTwenty [
+
+	| aGame nameCollection gear someSquares squareGenerator |
+	nameCollection := OrderedCollection with: 'Juan' with: 'Agus'.
+	someSquares := OrderedCollection with: PavementSquare new.
+
+	gear := {
+		        (LoadedDie sequence: #( 10 )).
+		        (LoadedDie sequence: #( 1 )) }.
+
+	squareGenerator := LoadedSquareGenerator withSquares: someSquares.
+	aGame := RallyGame
+		         players: nameCollection
+		         gear: gear
+		         boardLength: 100
+		         generator: squareGenerator
+		         curves: {  } asOrderedCollection
+		         lengthInKm: 200.
+
+	aGame advance.
+
+	self assert: (aGame kilometersOf: 'Juan') equals: 20
 ]

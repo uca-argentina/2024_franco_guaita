@@ -5,18 +5,20 @@ Class {
 		'board',
 		'cars',
 		'die',
-		'curves'
+		'curves',
+		'lenghtInKm'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'as yet unclassified' }
-RallyGame class >> players: nameCollection boardLength: aBoardLength curves: someCurves [
+RallyGame class >> players: nameCollection boardLength: aBoardLength curves: someCurves lengthInKm: aKmLength [
 
 	^ self new
 		  initializeWithPlayers: nameCollection
 		  withBoardLength: aBoardLength
 		  withCurves: someCurves
+		  withKm: aKmLength
 ]
 
 { #category : #'as yet unclassified' }
@@ -38,6 +40,18 @@ RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength
 		  withBoardLength: aBoardLength
 		  withGenerator: aSquareGenerator
 		  withCurves: someCurves
+]
+
+{ #category : #'as yet unclassified' }
+RallyGame class >> players: nameCollection gear: aGear boardLength: aBoardLength generator: aSquareGenerator curves: someCurves lengthInKm: aKmLength [
+
+	^ self new
+		  initializeWithPlayers: nameCollection
+		  withGear: aGear
+		  withBoardLength: aBoardLength
+		  withGenerator: aSquareGenerator
+		  withCurves: someCurves
+		  withKm: aKmLength
 ]
 
 { #category : #initialization }
@@ -71,7 +85,7 @@ RallyGame >> gearOf: aCarName [
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withBoardLength: aBoardLength withCurves: someCurves [
+RallyGame >> initializeWithPlayers: nameCollection withBoardLength: aBoardLength withCurves: someCurves withKm: aKmLength [
 
 	| defaultGear |
 	defaultGear := {
@@ -86,10 +100,11 @@ RallyGame >> initializeWithPlayers: nameCollection withBoardLength: aBoardLength
 		  withGear: defaultGear
 		  withBoardLength: aBoardLength
 		  withCurves: someCurves
+		  withKm: aKmLength
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withCurves: someCurves [
+RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withCurves: someCurves withKm: aKmLength [
 
 	| aSquareGenerator |
 	aSquareGenerator := SquareGenerator new.
@@ -98,18 +113,18 @@ RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLeng
 		withGear: aGear
 		withBoardLength: aBoardLength
 		withGenerator: aSquareGenerator
-		withCurves: someCurves 
-		
+		withCurves: someCurves
+		withKm: aKmLength
 ]
 
 { #category : #initialization }
-RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator withCurves: someCurves [
+RallyGame >> initializeWithPlayers: nameCollection withGear: aGear withBoardLength: aBoardLength withGenerator: aSquareGenerator withCurves: someCurves withKm: aKmLength [
 
 	board := Board length: aBoardLength withGenerator: aSquareGenerator .
-	
 	cars := nameCollection collect: [ :name | Car name: name gear: aGear ].
 	board startingCars: cars .
-	curves := someCurves 
+	curves := someCurves .
+	lenghtInKm := aKmLength .
 	
 	
 	 
@@ -122,6 +137,16 @@ RallyGame >> isOver [
 		   (self positionOf: car name) = board size ]) or:
 		  (cars allSatisfy: [ :car | car noTiresLeft ])
 	"^ board last isNotEmpty ."
+]
+
+{ #category : #'as yet unclassified' }
+RallyGame >> kilometersOf: aCarName [ 
+	| position kmPerSquare |
+	position := self positionOf: aCarName .
+	kmPerSquare := lenghtInKm / board size .
+	^ kmPerSquare * (position - 1)
+	
+	
 ]
 
 { #category : #initialization }
